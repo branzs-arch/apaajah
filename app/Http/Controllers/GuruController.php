@@ -3,72 +3,70 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Student;
+use App\Models\Guru;
 
-class StudentController extends Controller
+class GuruController extends Controller
 {
     public function index()
     {
-        $students = Student::orderBy('created_at', 'desc')->get();
-        return view('student.index', compact('students'));
+        $gurus = Guru::orderBy('created_at', 'desc')->get();
+        return view('guru.index', compact('gurus'));
     }
 
     public function create()
     {
-        return view('student.create');
+        return view('guru.create');
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nisn' => 'required|unique:students,nisn',
+            'nip' => 'required|unique:gurus,nip',
             'nama_lengkap' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string',
-            'jurusan' => 'required|string|max:100',
-            'angkatan' => 'required|string|max:10',
+            'mata_pelajaran' => 'required|string|max:100',
             'no_hp' => 'nullable|string|max:20',
             'is_active' => 'nullable|boolean',
         ]);
 
         $data['is_active'] = $request->input('is_active', 1);
         $data['added_by'] = auth()->user()->name ?? 'Admin';
-        Student::create($data);
+        Guru::create($data);
 
-        return redirect()->route('student.index')->with('success', 'Data siswa berhasil ditambahkan');
+        return redirect()->route('guru.index')->with('success', 'Data guru berhasil ditambahkan');
     }
 
     public function edit(string $id)
     {
-        $student = Student::findOrFail($id);
-        return view('student.edit', compact('student'));
+        $guru = Guru::findOrFail($id);
+        return view('guru.edit', compact('guru'));
     }
 
     public function update(Request $request, string $id)
     {
-        $student = Student::findOrFail($id);
+        $guru = Guru::findOrFail($id);
 
         $data = $request->validate([
-            'nisn' => 'required|unique:students,nisn,' . $student->id,
+            'nip' => 'required|unique:gurus,nip,' . $guru->id,
             'nama_lengkap' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string',
-            'jurusan' => 'required|string|max:100',
-            'angkatan' => 'required|string|max:10',
+            'mata_pelajaran' => 'required|string|max:100',
             'no_hp' => 'nullable|string|max:20',
             'is_active' => 'nullable|boolean',
         ]);
 
         $data['added_by'] = auth()->user()->name;
-        $student->update($data);
-        return redirect()->route('student.index')->with('success', 'Data siswa berhasil diperbarui');
+        $guru->update($data);
+        return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui');
     }
 
     public function destroy(string $id)
     {
-        Student::destroy($id);
-        return redirect()->route('student.index')->with('success', 'Data siswa berhasil dihapus');
+        Guru::destroy($id);
+        return redirect()->route('guru.index')->with('success', 'Data guru berhasil dihapus');
     }
 }

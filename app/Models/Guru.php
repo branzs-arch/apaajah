@@ -6,19 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\LogsActivity;
 
-class Student extends Model
+class Guru extends Model
 {
     use HasFactory, LogsActivity;
+
+    protected $table = 'gurus';
+
     protected $fillable = [
-        'nisn',
+        'nip',
         'nama_lengkap',
         'tempat_lahir',
         'tanggal_lahir',
         'alamat',
-        'jurusan',
-        'angkatan',
+        'mata_pelajaran',
         'no_hp',
-        'is_active',
         'added_by',
+        'is_active',
     ];
 }

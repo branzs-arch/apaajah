@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+    /* Global Background Override with Dark Mode Support */
+    body {
+        @apply bg-cream text-gray-800 dark:bg-slate-950 dark:text-gray-100 transition-colors duration-500;
+        background-attachment: fixed;
+    }
+
+    /* Transition for All Elements */
+    * {
+        @apply transition-colors duration-200;
+    }
+
+    /* Bootstrap Primary Override */
+    .bg-primary {
+        background-color: theme('colors.primary') !important;
+        @apply dark:bg-slate-800 !important;
+    }
+
+    .text-primary {
+        color: theme('colors.primary') !important;
+        @apply dark:text-blue-400 !important;
+    }
+
+    .btn-primary {
+        background-color: theme('colors.primary') !important;
+        border-color: theme('colors.primary') !important;
+        color: white !important;
+        @apply shadow-lg hover:shadow-primary/30 transition-all duration-300 !important;
+    }
+
+    .btn-primary:hover {
+        background-color: #4a6295 !important;
+        border-color: #4a6295 !important;
+        @apply -translate-y-0.5 !important;
+    }
+
+    /* Glassmorphism Classes */
+    .glass-nav {
+        @apply bg-white/70 backdrop-blur-md dark:bg-slate-900/80 border-b border-white/20 dark:border-slate-800/50 sticky top-0 z-50 !important;
+    }
+
+    /* Table Improvements */
+    .table {
+        @apply mb-0 !important;
+    }
+
+    .table thead th {
+        @apply border-0 font-bold !important;
+    }
+
+    .table tbody td {
+        @apply border-gray-200/50 dark:border-slate-800/50 !important;
+    }
+
+    /* Navbar Customization */
+    .sb-topnav {
+        background-color: theme('colors.primary') !important;
+    }
+}
